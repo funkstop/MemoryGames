@@ -72,7 +72,7 @@ game.createDeck = function() {
     const cardConnections = [
         'Do you remember teaching there?', // Add the card names here
         'Bringing back memories of Dar es Salaam',
-        'How Amazing to have Mount Meru in the background!',
+        'Do you recall the name of the mountain in the background!',
         'Can you name the elements of the crest?'
     ];
     

@@ -5,7 +5,7 @@ const game = {
     cards: [],
     cardWidth: 200,
     cardHeight: 300,
-    numCards: 8,
+    numCards: 16,
     matches: 0,
     flippedCards: []
 };
@@ -59,10 +59,18 @@ game.createDeck = function() {
         'images/Makerere.png',
         'images/KTShop.png',
         'images/arushaCity.png',
+        'images/Uonairobi_emblem.png',
+        'images/Makerere.png',
+        'images/KTShop.png',
+        'images/arushaCity.png',
         'images/Uonairobi_emblem.png'
       ];
 
       const cardNames = [
+        'Makerere University', // Add the card names here
+        'K T Shop',
+        'Arusha, Tanzania',
+        'University of Nairobi Crest',
         'Makerere University', // Add the card names here
         'K T Shop',
         'Arusha, Tanzania',
@@ -72,7 +80,7 @@ game.createDeck = function() {
     const cardConnections = [
         'Do you remember teaching there?', // Add the card names here
         'Bringing back memories of Dar es Salaam',
-        'Do you recall the name of the mountain in the background!',
+        'Do you recognized Mount Meru in the background?',
         'Can you name the elements of the crest?'
     ];
     

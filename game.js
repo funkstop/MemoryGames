@@ -48,8 +48,6 @@ game.initCanvas = function() {
             }
         }
     });
-
-    
 }
 
 game.createDeck = function() {

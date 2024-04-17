@@ -5,7 +5,7 @@ const game = {
     cards: [],
     cardWidth: 200,
     cardHeight: 300,
-    numCards: 16,
+    numCards: 12,
     matches: 0,
     flippedCards: []
 };
@@ -61,7 +61,7 @@ game.createDeck = function() {
         'images/churchillhighschool.png',
         'images/MurchisonFalls.jpg',
         'images/arushaCity.png',
-        'images/Uonairobi_emblem.png'
+       // 'images/Uonairobi_emblem.png'
       ];
 
       const cardNames = [
@@ -72,7 +72,7 @@ game.createDeck = function() {
         'Churchill High School', // Add the card names here
         'Murchison Falls',
         'Arusha, Tanzania',
-        'University of Nairobi Crest'
+      //  'University of Nairobi Crest'
     ];
     
     const cardConnections = [
@@ -81,9 +81,9 @@ game.createDeck = function() {
         'Do you recognized Mount Meru in the background?',
         'Can you name the elements of the crest?',
         'Your first high school that you taught in. The Bulldog is still in your living room!',
-        'Murchison Falls, Uganda - a great honeymoon where an elephant almost charged you!',
+        'A great honeymoon where an elephant almost charged you!',
         'Arusha, Tanzania',
-        'University of Nairobi Crest'
+      //  'University of Nairobi Crest'
     ];
     
     for (let i = 0; i < game.numCards / 2; i++) {

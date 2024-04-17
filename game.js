@@ -60,7 +60,7 @@ game.createDeck = function() {
         'images/Uonairobi_emblem.png',
         'images/churchillhighschool.png',
         'images/MurchisonFalls.jpg',
-        'images/arushaCity.png',
+        'images/arushaCity.png'
        // 'images/Uonairobi_emblem.png'
       ];
 
@@ -71,7 +71,7 @@ game.createDeck = function() {
         'University of Nairobi Crest',
         'Churchill High School', // Add the card names here
         'Murchison Falls',
-        'Arusha, Tanzania',
+        'Arusha, Tanzania'
       //  'University of Nairobi Crest'
     ];
     
@@ -82,7 +82,7 @@ game.createDeck = function() {
         'Can you name the elements of the crest?',
         'Your first high school that you taught in. The Bulldog is still in your living room!',
         'A great honeymoon where an elephant almost charged you!',
-        'Arusha, Tanzania',
+        'Arusha, Tanzania'
       //  'University of Nairobi Crest'
     ];
     

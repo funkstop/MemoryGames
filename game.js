@@ -104,7 +104,6 @@ game.shuffleArray = function(array) {
     return array;
 }
 
-
 game.renderCards = function() {
     const cardsPerColumn = 4; // number of cards per row
     const numColumns = Math.ceil(game.cards.length / cardsPerColumn); // calculate the number of rows needed

@@ -60,7 +60,7 @@ game.createDeck = function() {
         'images/KTShop.png',
         'images/arushaCity.png',
         'images/Uonairobi_emblem.png',
-        'images/Makerere.png',
+        'images/churchillhighschool.png',
         'images/KTShop.png',
         'images/arushaCity.png',
         'images/Uonairobi_emblem.png'
@@ -71,7 +71,7 @@ game.createDeck = function() {
         'K T Shop',
         'Arusha, Tanzania',
         'University of Nairobi Crest',
-        'Makerere University', // Add the card names here
+        'Churchill High School', // Add the card names here
         'K T Shop',
         'Arusha, Tanzania',
         'University of Nairobi Crest'
@@ -81,7 +81,11 @@ game.createDeck = function() {
         'Do you remember teaching there?', // Add the card names here
         'Bringing back memories of Dar es Salaam',
         'Do you recognized Mount Meru in the background?',
-        'Can you name the elements of the crest?'
+        'Can you name the elements of the crest?',
+        'Your first high school that you taught in. The Bulldog is still in your living room!',
+        'K T Shop',
+        'Arusha, Tanzania',
+        'University of Nairobi Crest'
     ];
     
     for (let i = 0; i < game.numCards / 2; i++) {

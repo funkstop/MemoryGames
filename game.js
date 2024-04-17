@@ -61,7 +61,7 @@ game.createDeck = function() {
         'images/arushaCity.png',
         'images/Uonairobi_emblem.png',
         'images/churchillhighschool.png',
-        'images/KTShop.png',
+        'images/MurchisonFalls.jpg',
         'images/arushaCity.png',
         'images/Uonairobi_emblem.png'
       ];
@@ -72,7 +72,7 @@ game.createDeck = function() {
         'Arusha, Tanzania',
         'University of Nairobi Crest',
         'Churchill High School', // Add the card names here
-        'K T Shop',
+        'Murchison Falls',
         'Arusha, Tanzania',
         'University of Nairobi Crest'
     ];
@@ -83,7 +83,7 @@ game.createDeck = function() {
         'Do you recognized Mount Meru in the background?',
         'Can you name the elements of the crest?',
         'Your first high school that you taught in. The Bulldog is still in your living room!',
-        'K T Shop',
+        'Murchison Falls, Uganda - a great honeymoon where an elephant almost charged you!',
         'Arusha, Tanzania',
         'University of Nairobi Crest'
     ];

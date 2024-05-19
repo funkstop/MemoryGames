@@ -23,8 +23,18 @@ class Card {
 game.initCanvas = function() {
     game.canvas = document.getElementById("gameCanvas");
     game.ctx = game.canvas.getContext("2d");
-    game.canvas.width = 2000; // Increase the width
-    game.canvas.height = 1600; // Increase the height
+    
+    // Determine if on mobile device and adjust dimensions and layout
+    const isMobile = window.innerWidth <= 800; // Check if screen width is 800px or less
+    if (isMobile) {
+        game.cardWidth = 140; // Reduce card width
+        game.cardHeight = 210; // Reduce card height
+        game.canvas.width = 400; // Adjust canvas width
+        game.canvas.height = Math.ceil(game.numCards / 2) * (game.cardHeight + 20) + 50; // Adjust canvas height based on number of rows
+    } else {
+        game.canvas.width = 2000; // Original width
+        game.canvas.height = 1600; // Original height
+    }
 
 
     game.canvas.addEventListener('click', function(event) {
@@ -37,7 +47,8 @@ game.initCanvas = function() {
         // Check which card was clicked
         for (let i = 0; i < game.cards.length; i++) {
             const card = game.cards[i];
-            const cardLeft = i % 4 * (game.cardHeight + 20) + 50;
+            const cardsPerColumn = isMobile ? 2 : 4; // Set cards per row to 2 on mobile
+            const cardLeft = i % cardsPerColumn * (game.cardHeight + 20) + 50; // Adjust card positioning
             const cardRight = cardLeft + game.cardHeight;
             const cardTop = Math.floor(i / 4) * (game.cardWidth + 20) + 50;
             const cardBottom = cardTop + game.cardWidth;

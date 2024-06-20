@@ -7,7 +7,8 @@ const game = {
     cardHeight: 300,
     numCards: 12,
     matches: 0,
-    flippedCards: []
+    flippedCards: [],
+    isMobile: false  // Add this line
 };
 
 class Card {
@@ -24,41 +25,22 @@ game.initCanvas = function() {
     game.canvas = document.getElementById("gameCanvas");
     game.ctx = game.canvas.getContext("2d");
     
-    // Determine if on mobile device and adjust dimensions and layout
-    const isMobile = window.innerWidth <= 800; // Check if screen width is 800px or less
-    if (isMobile) {
-        game.cardWidth = 140; // Reduce card width
-        game.cardHeight = 210; // Reduce card height
-        game.canvas.width = 400; // Adjust canvas width
-        game.canvas.height = Math.ceil(game.numCards / 2) * (game.cardHeight + 20) + 50; // Adjust canvas height based on number of rows
+    // Determine if on mobile device
+    game.isMobile = window.innerWidth <= 800;
+    
+    if (game.isMobile) {
+        game.cardWidth = 210;
+        game.cardHeight = 140;
+        game.canvas.width = 460; // Fits 2 cards side by side with some margin
+        game.canvas.height = Math.ceil(game.numCards / 2) * (game.cardHeight + 20) + 50;
     } else {
-        game.canvas.width = 2000; // Original width
-        game.canvas.height = 1600; // Original height
+        game.cardWidth = 300;
+        game.cardHeight = 200;
+        game.canvas.width = 1300; // Fits 4 cards side by side with some margin
+        game.canvas.height = Math.ceil(game.numCards / 4) * (game.cardHeight + 20) + 50;
     }
 
-
-    game.canvas.addEventListener('click', function(event) {
-        console.log('Canvas clicked!');
-
-        const rect = game.canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-    
-        // Check which card was clicked
-        for (let i = 0; i < game.cards.length; i++) {
-            const card = game.cards[i];
-            const cardsPerColumn = isMobile ? 2 : 4; // Set cards per row to 2 on mobile
-            const cardLeft = i % cardsPerColumn * (game.cardHeight + 20) + 50; // Adjust card positioning
-            const cardRight = cardLeft + game.cardHeight;
-            const cardTop = Math.floor(i / 4) * (game.cardWidth + 20) + 50;
-            const cardBottom = cardTop + game.cardWidth;
-    
-            if (x >= cardLeft && x <= cardRight && y >= cardTop && y <= cardBottom) {
-                // Flip the card
-                game.flipCard(card);
-            }
-        }
-    });
+    // ... rest of the function remains the same ...
 }
 
 game.createDeck = function() {
@@ -118,44 +100,25 @@ game.shuffleArray = function(array) {
 }
 
 game.renderCards = function() {
-    const cardsPerColumn = 4; // number of cards per row
-    const numColumns = Math.ceil(game.cards.length / cardsPerColumn); // calculate the number of rows needed
+    const cardsPerRow = game.isMobile ? 2 : 4;
 
-    // Preload all images
-    const images = {};
+    // Clear the canvas
+    game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
+
+    // Draw the cards
     for (let i = 0; i < game.cards.length; i++) {
         const card = game.cards[i];
+        const x = (i % cardsPerRow) * (game.cardWidth + 20) + 10;
+        const y = Math.floor(i / cardsPerRow) * (game.cardHeight + 20) + 10;
+
+        // Draw card back or front based on isFlipped state
         const img = new Image();
-        img.src = card.isFlipped ? card.imageSrc : 'images/card-back.png';
-        images[i] = img;
-    }
-
-    // Wait for all images to load
-    const allImagesLoaded = () => Object.values(images).every(img => img.complete);
-    const renderInterval = setInterval(() => {
-        if (allImagesLoaded()) {
-            clearInterval(renderInterval);
-
-            // Draw the cards
-            for (let i = 0; i < game.cards.length; i++) {
-                const card = game.cards[i];
-                const img = images[i];
-                const x = (i % cardsPerColumn) * (game.cardHeight + 20) + 50; // Use card height for x
-                const y = Math.floor(i / cardsPerColumn) * (game.cardWidth + 20) + 50; // Use card width for y
-
-                // Only redraw the card if its state has changed
-                if (card.isFlipped !== img.isFlipped) {
-                    game.ctx.clearRect(x, y, game.cardHeight, game.cardWidth);
-                    game.ctx.drawImage(img, x, y, game.cardHeight, game.cardWidth);
-                    img.isFlipped = card.isFlipped;
-                }
-            }
+        img.onload = function() {
+            game.ctx.drawImage(img, x, y, game.cardWidth, game.cardHeight);
         }
-    }, 100); // Check for loaded images every 100ms
+        img.src = card.isFlipped ? card.imageSrc : 'images/card-back.png';
+    }
 }
-
-
-    
 
 
 game.flipCard = function(card) {

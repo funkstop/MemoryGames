@@ -29,8 +29,8 @@ game.initCanvas = function() {
     game.isMobile = window.innerWidth <= 800;
     
     if (game.isMobile) {
-        game.cardWidth = 200;  // Reduced from 210
-        game.cardHeight = 130;  // Reduced from 140
+        game.cardWidth = 190;  // Reduced from 210
+        game.cardHeight = 125;  // Reduced from 140
         game.canvas.width = 410;  // Reduced from 460
         game.canvas.height = Math.ceil(game.numCards / 2) * (game.cardHeight + 10) + 20;  // Reduced vertical spacing
     } else {
@@ -40,23 +40,40 @@ game.initCanvas = function() {
         game.canvas.height = Math.ceil(game.numCards / 4) * (game.cardHeight + 20) + 50;
     }
 
-    game.canvas.addEventListener('click', function(event) {
-        const rect = game.canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-    
+    const handleInteraction = function(event) {
+        event.preventDefault();
+
+        let x, y;
+        if (event.type === 'touchstart') {
+            const touch = event.touches[0];
+            const rect = game.canvas.getBoundingClientRect();
+            x = touch.clientX - rect.left;
+            y = touch.clientY - rect.top;
+        } else { // click event
+            const rect = game.canvas.getBoundingClientRect();
+            x = event.clientX - rect.left;
+            y = event.clientY - rect.top;
+        }
+
         const cardsPerRow = game.isMobile ? 2 : 4;
+        const spacingX = game.isMobile ? 10 : 20;
+        const spacingY = game.isMobile ? 10 : 20;
+
         for (let i = 0; i < game.cards.length; i++) {
-            const cardLeft = (i % cardsPerRow) * (game.cardWidth + 20) + 10;
-            const cardTop = Math.floor(i / cardsPerRow) * (game.cardHeight + 20) + 10;
-    
+            const cardLeft = (i % cardsPerRow) * (game.cardWidth + spacingX) + (game.isMobile ? 5 : 10);
+            const cardTop = Math.floor(i / cardsPerRow) * (game.cardHeight + spacingY) + (game.isMobile ? 5 : 10);
+
             if (x >= cardLeft && x <= cardLeft + game.cardWidth &&
                 y >= cardTop && y <= cardTop + game.cardHeight) {
                 game.flipCard(game.cards[i]);
                 break;
             }
         }
-    });
+    };
+
+    // Add both click and touch event listeners
+    game.canvas.addEventListener('click', handleInteraction);
+    game.canvas.addEventListener('touchstart', handleInteraction);
 }
 
 game.createDeck = function() {
@@ -87,7 +104,7 @@ game.createDeck = function() {
     const cardConnections = [
         'Do you remember teaching there?', // Add the card names here
         'Bringing back memories of Dar es Salaam',
-        'Do you recognized Mount Meru in the background?',
+        'Do you recognize Mount Meru in the background?',
         'Can you name the elements of the crest?',
         'Your first high school that you taught in. The Bulldog is still in your living room!',
         'A great honeymoon where an elephant almost charged you!',
@@ -117,18 +134,16 @@ game.shuffleArray = function(array) {
 
 game.renderCards = function() {
     const cardsPerRow = game.isMobile ? 2 : 4;
+    const spacingX = game.isMobile ? 10 : 20;
+    const spacingY = game.isMobile ? 10 : 20;
 
     game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
 
     for (let i = 0; i < game.cards.length; i++) {
         const card = game.cards[i];
-        let x = (i % cardsPerRow) * (game.cardWidth + 20) + 10;
-        let y = Math.floor(i / cardsPerRow) * (game.cardHeight + 20) + 10;
-        if (game.isMobile) { 
-            x = (i % cardsPerRow) * (game.cardWidth + 3) ;  // Reduced horizontal spacing
-            y = Math.floor(i / cardsPerRow) * (game.cardHeight + 3) ;  // Reduced vertical spacing
-        }
-       
+        const x = (i % cardsPerRow) * (game.cardWidth + spacingX) + (game.isMobile ? 5 : 10);
+        const y = Math.floor(i / cardsPerRow) * (game.cardHeight + spacingY) + (game.isMobile ? 5 : 10);
+
         const img = new Image();
         img.onload = function() {
             game.ctx.drawImage(img, x, y, game.cardWidth, game.cardHeight);

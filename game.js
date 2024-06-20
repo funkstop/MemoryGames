@@ -40,7 +40,23 @@ game.initCanvas = function() {
         game.canvas.height = Math.ceil(game.numCards / 4) * (game.cardHeight + 20) + 50;
     }
 
-    // ... rest of the function remains the same ...
+    game.canvas.addEventListener('click', function(event) {
+        const rect = game.canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+    
+        const cardsPerRow = game.isMobile ? 2 : 4;
+        for (let i = 0; i < game.cards.length; i++) {
+            const cardLeft = (i % cardsPerRow) * (game.cardWidth + 20) + 10;
+            const cardTop = Math.floor(i / cardsPerRow) * (game.cardHeight + 20) + 10;
+    
+            if (x >= cardLeft && x <= cardLeft + game.cardWidth &&
+                y >= cardTop && y <= cardTop + game.cardHeight) {
+                game.flipCard(game.cards[i]);
+                break;
+            }
+        }
+    });
 }
 
 game.createDeck = function() {
@@ -102,16 +118,13 @@ game.shuffleArray = function(array) {
 game.renderCards = function() {
     const cardsPerRow = game.isMobile ? 2 : 4;
 
-    // Clear the canvas
     game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
 
-    // Draw the cards
     for (let i = 0; i < game.cards.length; i++) {
         const card = game.cards[i];
         const x = (i % cardsPerRow) * (game.cardWidth + 20) + 10;
         const y = Math.floor(i / cardsPerRow) * (game.cardHeight + 20) + 10;
 
-        // Draw card back or front based on isFlipped state
         const img = new Image();
         img.onload = function() {
             game.ctx.drawImage(img, x, y, game.cardWidth, game.cardHeight);
@@ -122,8 +135,6 @@ game.renderCards = function() {
 
 
 game.flipCard = function(card) {
-    console.log('Flipping card:', card);
-
     if (!card.isFlipped && game.flippedCards.length < 2) {
         card.isFlipped = true;
         game.flippedCards.push(card);
@@ -131,9 +142,9 @@ game.flipCard = function(card) {
         if (game.flippedCards.length === 2) {
             setTimeout(game.checkMatch, 1000);
         }
-    }
 
-    game.renderCards(); // Add this line to re-render after flipping
+        game.renderCards(); // Re-render after flipping
+    }
 }
 
 game.checkMatch = function() {

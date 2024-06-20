@@ -29,10 +29,10 @@ game.initCanvas = function() {
     game.isMobile = window.innerWidth <= 800;
     
     if (game.isMobile) {
-        game.cardWidth = 210;
-        game.cardHeight = 140;
-        game.canvas.width = 460; // Fits 2 cards side by side with some margin
-        game.canvas.height = Math.ceil(game.numCards / 2) * (game.cardHeight + 20) + 50;
+        game.cardWidth = 200;  // Reduced from 210
+        game.cardHeight = 130;  // Reduced from 140
+        game.canvas.width = 410;  // Reduced from 460
+        game.canvas.height = Math.ceil(game.numCards / 2) * (game.cardHeight + 10) + 20;  // Reduced vertical spacing
     } else {
         game.cardWidth = 300;
         game.cardHeight = 200;
@@ -122,9 +122,13 @@ game.renderCards = function() {
 
     for (let i = 0; i < game.cards.length; i++) {
         const card = game.cards[i];
-        const x = (i % cardsPerRow) * (game.cardWidth + 20) + 10;
-        const y = Math.floor(i / cardsPerRow) * (game.cardHeight + 20) + 10;
-
+        let x = (i % cardsPerRow) * (game.cardWidth + 20) + 10;
+        let y = Math.floor(i / cardsPerRow) * (game.cardHeight + 20) + 10;
+        if (game.isMobile) { 
+            x = (i % cardsPerRow) * (game.cardWidth + 3) ;  // Reduced horizontal spacing
+            y = Math.floor(i / cardsPerRow) * (game.cardHeight + 3) ;  // Reduced vertical spacing
+        }
+       
         const img = new Image();
         img.onload = function() {
             game.ctx.drawImage(img, x, y, game.cardWidth, game.cardHeight);

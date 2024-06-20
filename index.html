@@ -1,21 +1,35 @@
-<!DOCTYPE html>     
-<html lang="en">    
-    <head>         
-        <meta charset="UTF-8">         
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">         
-        <title>Memory Game</title>     
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Memory Game</title>
         <link rel="stylesheet" href="style.css">
-    </head>    
-    <body>         
-        <canvas id="gameCanvas"></canvas>       
-        <script src="game.js"></script> 
+    </head>
+    <body>
+        <div id="gameInfo">
+            <h1>Memory Game</h1>
+            <p>
+                Welcome to the Memory Game! <br/>
+                Your objective is to find and match pairs of cards by flipping them over.<br/>
+                By playing regularly, you can enhance your memory, concentration, and pattern recognition skills.<br/>
+            </p>
+            <p class="thesis_info">
+                This game is the basis of my thesis at the NYU Tisch School of Arts and is based on my mother's experience<br/>
+                It is a prototype in development and continuously being updated. <br/>
+                Interested to learn more? reach out at rahimadatia at gmail <br/>
+            </p>
+        </div>
+
+        <canvas id="gameCanvas"></canvas>
+
+        <script src="game.js"></script>
         <div id="matchModal" class="modal">
             <div class="modal-content">
-                <span class="close">&times;</span>
+                <span id="closeBtn" class="close">&times;</span>
                 <h2>Matched Cards</h2>
                 <p id="matchInfo"></p>
             </div>
-        </div>    
-    </body>     
-    
-</html> 
+        </div>
+    </body>
+</html>

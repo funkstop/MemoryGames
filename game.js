@@ -202,6 +202,10 @@ window.addEventListener("load", function() {
     game.initCanvas();
     game.createDeck();
     game.renderCards(); // Add this line to call renderCards
+
+    // Add event listener to the close button
+    const closeBtn = document.getElementById('closeBtn');
+    closeBtn.addEventListener('click', hideModal);
 });
 
 function showModal(content) {
